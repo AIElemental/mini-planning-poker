@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+
+    <style>
+body{
+  background-color:#fff;
+  color:#000020;
+}
+.buttons-list{
+  background-color:#f7fff9;
+  float:left;
+	clear:left;
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+}
+.card{
+	background-color:#ffffee;
+	float:left;
+	border: 1px solid #000;
+  box-sizing: border-box;
+  margin:20px;
+  padding:10px;
+}
+.card .author {
+	float:left;
+	font-size:20pt;
+}
+.card .estimation {
+  clear:left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50pt;
+}
+.my-pane{
+	width:30%;
+	float:left;
+  height:100vh;
+	border-right: 5px solid #F5E5D6;
+  box-sizing: border-box;
+}
+.others-pane{
+	background-color:#d3d3d3;
+	width:70%;
+	float:left;
+  height:100vh;
+  box-sizing: border-box;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+}
+
+    </style>
+
+</head>
+<body>
+<div class="my-pane">
+    <div>Room:<span style="font-size:150%">REPLACE-ROOM-ID</span>
+        <button onClick="window.location.reload();">Reload</button>
+    </div>
+    <div class="card">
+        <div class="author" id="myName">REPLACE-USERNAME</div>
+        <div class="estimation" id="myEstimation">REPLACE-MY-ESTIMATION</div>
+    </div>
+    <div class="buttons-list">
+        <form action="/api-add-estimation" method="get" id="estimation-form">
+            <input type="hidden" name="roomId" value="REPLACE-ROOM-ID">
+            <input type="hidden" name="username" value="REPLACE-USERNAME">
+        </form>
+        <button type="submit" form="estimation-form" name="estimation" value="1" id="1">1 sp</button>
+        <button type="submit" form="estimation-form" name="estimation" value="3" id="3">3 sp</button>
+        <button type="submit" form="estimation-form" name="estimation" value="5" id="5">5 sp</button>
+        <button type="submit" form="estimation-form" name="estimation" value="8" id="8">8 sp</button>
+        <button type="submit" form="estimation-form" name="estimation" value="pass" id="pass">pass</button>
+        <!--        <button type="submit" form="estimation-form" name="estimation" value="?" id="no-answer">?</button>-->
+    </div>
+
+    <div class="footer">
+        <form action="/" method="get" id="go-home">
+            <input type="hidden" name="username" value="REPLACE-USERNAME">
+        </form>
+        <button type="submit" form="go-home">Go to main screen</button>
+    </div>
+</div>
+<div class="others-pane" id="others-pane">
+    <div><span style="font-size:150%">REPLACE-DESCRIPTION</span></div>
+    <div>
+        <form action="/api-set-description" method="get" id="set-description-form">
+            <input type="hidden" name="roomId" value="REPLACE-ROOM-ID">
+            <input type="hidden" name="username" value="REPLACE-USERNAME">
+            <input type="text" size="50" name="description" placeholder="Change description and reset votes">
+            <button type="submit" form="set-description-form">Submit and reset</button>
+        </form>
+    </div>
+    <!--
+            <div class="card">
+                <div class="author">Dmitriy Piperoglous</div>
+                <div class="estimation">7</div>
+            </div>
+    -->
+</div>
+<script>
+    var myName = "REPLACE-MY-NAME";
+    var othersEstimationsJson = [
+        REPLACE-OTHER-ESTIMATIONS-JSON
+    ];
+    function addCard (author, estimation) {
+        const nameDiv = document.createElement("div");
+        nameDiv.className = "author";
+        const nameText = document.createTextNode(author);
+        nameDiv.appendChild(nameText);
+
+        const spDiv = document.createElement("div");
+        spDiv.className = "estimation";
+        const spText = document.createTextNode(estimation);
+        spDiv.appendChild(spText);
+
+        const cardDiv = document.createElement("div");
+        cardDiv.className = "card";
+        cardDiv.appendChild(nameDiv);
+        cardDiv.appendChild(spDiv);
+
+        document.getElementById("others-pane").appendChild(cardDiv);
+    };
+    for (var i = 0; i < othersEstimationsJson.length; i++) {
+        addCard(othersEstimationsJson[i].username, othersEstimationsJson[i].estimation);
+    }
+    console.log("Room page ready");
+
+</script>
+</body>
+</html>

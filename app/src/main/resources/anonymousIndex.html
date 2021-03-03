@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+New Room -> Create room -> Open new Room
+List of existing rooms with links
+-->
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <title>Poker Authorization</title>
+    <style>
+#outer {
+  width:100%;
+  height:75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#error-holder {
+  color: #8b0000
+}
+    </style>
+</head>
+<body>
+<div id="error-holder">REPLACE-ERROR-MESSAGE</div>
+<div id="outer">
+    <form action="/">
+        <input name="username" value="" placeholder="What is your name?">
+        <input type="submit" value="Start">
+    </form>
+</div>
+<script type="text/javascript">
+console.log("anonymousIndex page ready");
+</script>
+</body>
+</html>

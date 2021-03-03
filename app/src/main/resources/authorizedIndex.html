@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+New Room -> Create room -> Open new Room
+List of existing rooms with links
+-->
+<html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+
+    <style>
+body{
+  background-color:#fff;
+  color:#000020;
+}
+.my-pane{
+	width:30%;
+	float:left;
+  height:100vh;
+	border-right: 5px solid #F5E5D6;
+  box-sizing: border-box;
+}
+#outer {
+  width:100%;
+  height:75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+    </style>
+
+</head>
+<body>
+<div id="outer">
+    <div class="left-pane">
+        <div>
+            <form action="/" method="get" id="go-home">
+                <span>I am <b id="username">REPLACE-USERNAME</b></span>
+                <input type="hidden" name="username" value="">
+                <input type="submit" value="Change name">
+            </form>
+        </div>
+        <div class="new-room">
+            <form action="api-add-room" id="new-room-form">
+                <span>Create new room</span>
+                <input type="hidden" name="t" value="REPLACE-FORM-PREVENT-CACHE">
+                <input type="hidden" name="username" value="REPLACE-USERNAME">
+                <input type="submit" value="Create">
+            </form>
+            <script type="text/javascript">
+                    setTimeout(
+                        function() {
+                            document.getElementById( "new-room-form" ).reset();
+                        },
+                        5
+                    );
+            </script>
+        </div>
+        <div class="existing-rooms" id="existing-rooms-holder">
+            <div>Open rooms:
+                <button onClick="window.location.reload();">Reload</button>
+            </div>
+            <div class="hidden-row" id="existing-room-template"><a href=""></a></div>
+        </div>
+        <script type="text/javascript">
+                console.log("Existing rooms: start");
+                var existingRooms = [
+                    REPLACE-EXISTING-ROOMS
+                ];
+                var holder = document.getElementById('existing-rooms-holder');
+                var template = document.getElementById('existing-room-template');
+                template.className = 'existing-rooms';
+                template.id='';
+                for (var i = 0; i < existingRooms.length; i++) {
+                    var new_row = template.cloneNode(true); //true for deep clone
+                    var links = new_row.getElementsByTagName('a');
+                    links[0].href = existingRooms[i] + "?username=REPLACE-USERNAME";
+                    links[0].innerHTML = existingRooms[i];
+                    holder.appendChild( new_row );
+                }
+                console.log("Existing rooms: done");
+        </script>
+    </div>
+</div>
+<script type="text/javascript">
+console.log("authorizedIndex page ready");
+</script>
+</body>
+</html>
